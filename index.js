@@ -23,7 +23,6 @@ const TAG_NAMES = [
     'var', 'video', 'wbr', 'xmp'
 ];
 
-
 export default h => {
     const createTag = (tagName) => (propsOrChildren, children) => 
                         typeof propsOrChildren === "object" && !Array.isArray(propsOrChildren) 
@@ -32,5 +31,7 @@ export default h => {
     TAG_NAMES.forEach(n => {
         toExport[n] =  createTag(n);
     });
+    // to create custom component. const Counter = component(({title}) => h1(title));
+    toExport.component = fn => props => h(fn, props); 
     return toExport;
 };
