@@ -32,6 +32,8 @@ export default h => {
         toExport[n] =  createTag(n);
     });
     // to create custom component. const Counter = component(({title}) => h1(title));
-    toExport.component = fn => (props, children) => h(fn, props, children); 
+    toExport.component = fn => (propsOrChildren, children) => 
+                                    typeof propsOrChildren === "object" && !Array.isArray(propsOrChildren) 
+                                        ? h(fn, propsOrChildren, children) : h(fn, {}, propsOrChildren); 
     return toExport;
 };
